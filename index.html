@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPT Capital — The Ownership Layer of the Future Economy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050507;
+  --deep: #0a0a0f;
+  --surface: #101018;
+  --card: #14141e;
+  --border: #1e1e2e;
+  --border-light: #2a2a3a;
+  --platinum: #c8c4be;
+  --silver: #9a968f;
+  --gold: #b8a47e;
+  --gold-light: #d4c4a0;
+  --white: #eceae6;
+  --midnight: #1a1a2e;
+  --accent: #8b7355;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--black);
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  color: var(--platinum);
+  background: var(--black);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
+
+/* Utility */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Grain Overlay */
+.grain {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 24px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(5,5,7,0.7);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-bottom: 1px solid rgba(30,30,46,0.5);
+  transition: all 0.4s ease;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.nav-logo-mark {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+.nav-logo-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--white);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--silver);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-size: 11px !important;
+  letter-spacing: 2.5px !important;
+  padding: 10px 28px;
+  border: 1px solid var(--gold);
+  color: var(--gold) !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-cta:hover {
+  background: var(--gold) !important;
+  color: var(--black) !important;
+}
+
+.nav-cta::after { display: none !important; }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 160px 40px 120px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(26,26,46,0.4) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(139,115,85,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 20%, rgba(139,115,85,0.04) 0%, transparent 60%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(30,30,46,0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30,30,46,0.15) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 80%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 960px;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 40px;
+  font-weight: 400;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.2s forwards;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(42px, 6.5vw, 88px);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--white);
+  letter-spacing: -1px;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.4s forwards;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.hero-sub {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--silver);
+  max-width: 640px;
+  margin: 0 auto 52px;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.6s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.8s forwards;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  background: var(--gold);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(184,164,126,0.2);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  background: transparent;
+  color: var(--platinum);
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--platinum);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.hero-metrics {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  margin-top: 80px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+  opacity: 0;
+  animation: fadeUp 1s ease 1s forwards;
+}
+
+.metric-item {
+  text-align: center;
+}
+
+.metric-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: -1px;
+}
+
+.metric-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-top: 8px;
+}
+
+/* ─── SECTION STYLES ─── */
+section {
+  padding: 140px 0;
+  position: relative;
+}
+
+.section-eyebrow {
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.section-desc {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--silver);
+  max-width: 560px;
+  margin-top: 24px;
+}
+
+/* ─── THESIS ─── */
+.thesis {
+  border-top: 1px solid var(--border);
+}
+
+.thesis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-top: 80px;
+  align-items: start;
+}
+
+.thesis-left {
+  position: sticky;
+  top: 160px;
+}
+
+.thesis-right {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.thesis-card {
+  padding: 40px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.thesis-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 0;
+  background: var(--gold);
+  transition: height 0.4s ease;
+}
+
+.thesis-card:hover::before { height: 100%; }
+.thesis-card:hover { border-color: var(--border-light); }
+
+.thesis-card-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.thesis-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.thesis-card-text {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--silver);
+}
+
+/* ─── ECOSYSTEM ─── */
+.ecosystem {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.eco-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.eco-header .section-desc {
+  margin: 24px auto 0;
+}
+
+.eco-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.eco-cell {
+  background: var(--surface);
+  padding: 48px 36px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  cursor: default;
+}
+
+.eco-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(184,164,126,0.05) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.eco-cell:hover::after { opacity: 1; }
+.eco-cell:hover { background: var(--card); }
+
+.eco-icon {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  font-size: 18px;
+  transition: border-color 0.4s ease;
+}
+
+.eco-cell:hover .eco-icon { border-color: var(--gold); }
+
+.eco-cell-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+
+.eco-cell-text {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--silver);
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── PLATFORM ─── */
+.platform-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 80px;
+}
+
+.platform-visual {
+  aspect-ratio: 1;
+  background: var(--card);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.platform-visual-inner {
+  width: 70%;
+  height: 70%;
+  position: relative;
+}
+
+.pv-ring {
+  position: absolute;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  animation: rotateslow 30s linear infinite;
+}
+
+.pv-ring-1 { inset: 0; }
+.pv-ring-2 { inset: 15%; border-color: var(--border-light); animation-duration: 25s; animation-direction: reverse; }
+.pv-ring-3 { inset: 30%; border-color: rgba(184,164,126,0.2); animation-duration: 20s; }
+
+.pv-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+}
+
+.pv-center-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.pv-node {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+.pv-node:nth-child(4) { top: 0; left: 50%; transform: translateX(-50%); }
+.pv-node:nth-child(5) { top: 50%; right: 0; transform: translateY(-50%); }
+.pv-node:nth-child(6) { bottom: 0; left: 50%; transform: translateX(-50%); }
+.pv-node:nth-child(7) { top: 50%; left: 0; transform: translateY(-50%); }
+
+.platform-features {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.pf-item {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.pf-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  color: var(--border-light);
+  line-height: 1;
+  min-width: 36px;
+}
+
+.pf-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.pf-text {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--silver);
+}
+
+/* ─── ROADMAP ─── */
+.roadmap {
+  border-top: 1px solid var(--border);
+}
+
+.roadmap-header {
+  margin-bottom: 80px;
+}
+
+.roadmap-phases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  position: relative;
+}
+
+.phase {
+  background: var(--card);
+  padding: 52px 40px;
+  position: relative;
+  border-top: 3px solid var(--border);
+  transition: border-color 0.4s ease;
+}
+
+.phase:hover { border-top-color: var(--gold); }
+
+.phase-label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.phase-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.phase-items {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.phase-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--silver);
+}
+
+.phase-dot {
+  width: 5px;
+  height: 5px;
+  min-width: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin-top: 7px;
+}
+
+/* ─── INVESTORS ─── */
+.investors {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.investors-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+.inv-col-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.inv-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inv-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.inv-item:hover {
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+.inv-item-icon {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.inv-item-text {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--platinum);
+}
+
+/* ─── CTA ─── */
+.cta-section {
+  padding: 180px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(139,115,85,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(26,26,46,0.3) 0%, transparent 50%);
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
+}
+
+.cta-title em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.cta-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--silver);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto 48px;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 64px 0 48px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 64px;
+}
+
+.footer-brand {
+  max-width: 320px;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--white);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.footer-tagline {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--silver);
+  line-height: 1.7;
+}
+
+.footer-cols {
+  display: flex;
+  gap: 80px;
+}
+
+.footer-col-title {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.footer-col a {
+  display: block;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--silver);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color 0.3s;
+}
+
+.footer-col a:hover { color: var(--white); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--silver);
+  font-weight: 300;
+}
+
+.footer-legal {
+  display: flex;
+  gap: 28px;
+}
+
+.footer-legal a {
+  color: var(--silver);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-legal a:hover { color: var(--white); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotateslow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Scroll animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .thesis-grid { grid-template-columns: 1fr; gap: 48px; }
+  .thesis-left { position: static; }
+  .eco-grid { grid-template-columns: repeat(2, 1fr); }
+  .platform-layout { grid-template-columns: 1fr; }
+  .platform-visual { max-width: 480px; margin: 0 auto; }
+  .roadmap-phases { grid-template-columns: 1fr; }
+  .investors-layout { grid-template-columns: 1fr; }
+  .footer-top { flex-direction: column; gap: 48px; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .container { padding: 0 24px; }
+  section { padding: 100px 0; }
+  .hero { padding: 140px 24px 100px; }
+  .hero-metrics { flex-direction: column; gap: 32px; }
+  .eco-grid { grid-template-columns: 1fr; }
+  .footer-cols { flex-direction: column; gap: 36px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--border-light);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 18px;
+  height: 1px;
+  background: var(--platinum);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 0.3s;
+}
+
+.nav-toggle span:nth-child(1) { top: 14px; }
+.nav-toggle span:nth-child(2) { top: 20px; }
+.nav-toggle span:nth-child(3) { top: 26px; }
+
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">G</div>
+    <span class="nav-logo-text">GPT Capital</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#thesis">Thesis</a></li>
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contact" class="nav-cta">Partner With Us</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">The Ownership Layer of the Future Economy</p>
+    <h1 class="hero-title">We Don't Invest in<br>the Future. We <em>Architect</em> It.</h1>
+    <p class="hero-sub">GPT Capital is a next-generation ownership platform that funds, builds, distributes, and monetizes intellectual property across the global innovation economy.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Request Access</a>
+      <a href="#thesis" class="btn-secondary">Explore Thesis</a>
+    </div>
+    <div class="hero-metrics">
+      <div class="metric-item">
+        <div class="metric-value">$100M+</div>
+        <div class="metric-label">Capital Deployed</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">20–60%</div>
+        <div class="metric-label">Founding-Stage Equity</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">7</div>
+        <div class="metric-label">High-Growth Sectors</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">$1B</div>
+        <div class="metric-label">Strategic Target AUM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THESIS -->
+<section class="thesis" id="thesis">
+  <div class="container">
+    <div class="thesis-grid">
+      <div class="thesis-left reveal">
+        <p class="section-eyebrow">Strategic Thesis</p>
+        <h2 class="section-title">From Capital Allocator<br>to Ecosystem Architect</h2>
+        <p class="section-desc">Traditional venture competes for deals. GPT Capital creates the environments where deals originate—a vertically integrated platform that incubates companies, captures equity earlier, and controls the distribution channels that accelerate growth.</p>
+      </div>
+      <div class="thesis-right">
+        <div class="thesis-card reveal">
+          <div class="thesis-card-num">MULTIPLIER 01</div>
+          <div class="thesis-card-title">Scaled Capital Architecture</div>
+          <div class="thesis-card-text">A laddered fund structure—Fund I through Fund III—targeting family offices, sovereign wealth affiliates, entertainment capital groups, athlete collectives, and international wealth networks. Moving from $100M toward $300M in managed capital during phase one, scaling to $1B+ as institutional participation deepens.</div>
+        </div>
+        <div class="thesis-card reveal">
+          <div class="thesis-card-num">MULTIPLIER 02</div>
+          <div class="thesis-card-title">Venture Studio Engine</div>
+          <div class="thesis-card-text">Continuously producing internally incubated companies across AI, creator-economy infrastructure, fintech, licensing tech, consumer ecosystems, digital media IP, and real-estate technology. Capturing 20–60% founding-stage equity before outside capital dilutes positions—compounding portfolio value over a five-year horizon.</div>
+        </div>
+        <div class="thesis-card reveal">
+          <div class="thesis-card-num">MULTIPLIER 03</div>
+          <div class="thesis-card-title">Proprietary Venture Platform</div>
+          <div class="thesis-card-text">A digital ecosystem connecting founders, investors, advisors, and institutions through a deal-flow marketplace, AI-powered venture toolkit, and investor relations infrastructure. The platform itself becomes a high-valuation SaaS asset, adding a technology multiple independent of investment returns.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="ecosystem" id="ecosystem">
+  <div class="container">
+    <div class="eco-header reveal">
+      <p class="section-eyebrow">Verticals</p>
+      <h2 class="section-title">Seven Pillars of the<br>Innovation Economy</h2>
+      <p class="section-desc">Internally incubated companies designed from inception to integrate with shared operational infrastructure—legal, growth marketing, data analytics, engineering, distribution, and funding pipelines.</p>
+    </div>
+    <div class="eco-grid">
+      <div class="eco-cell reveal">
+        <div class="eco-icon">◆</div>
+        <h3 class="eco-cell-title">Artificial Intelligence</h3>
+        <p class="eco-cell-text">Enterprise and consumer AI software platforms positioned at the infrastructure layer of the emerging intelligence economy.</p>
+      </div>
+      <div class="eco-cell reveal">
+        <div class="eco-icon">◈</div>
+        <h3 class="eco-cell-title">Creator Infrastructure</h3>
+        <p class="eco-cell-text">Tools, platforms, and monetization systems powering the next generation of creator-driven businesses and digital economies.</p>
+      </div>
+      <div class="eco-cell reveal">
+        <div class="eco-icon">◇</div>
+        <h3 class="eco-cell-title">Fintech Platforms</h3>
+        <p class="eco-cell-text">Financial technology solutions spanning payments, lending, wealth management, and institutional capital infrastructure.</p>
+      </div>
+      <div class="eco-cell reveal">
+        <div class="eco-icon">▣</div>
+        <h3 class="eco-cell-title">Licensing Technology</h3>
+        <p class="eco-cell-text">IP licensing, rights management, and royalty infrastructure enabling scalable monetization of intellectual property.</p>
+      </div>
+      <div class="eco-cell reveal">
+        <div class="eco-icon">⬡</div>
+        <h3 class="eco-cell-title">Consumer Ecosystems</h3>
+        <p class="eco-cell-text">Direct-to-consumer product platforms with built-in distribution leverage and culturally resonant brand positioning.</p>
+      </div>
+      <div class="eco-cell reveal">
+        <div class="eco-icon">▲</div>
+        <h3 class="eco-cell-title">Digital Media IP</h3>
+        <p class="eco-cell-text">Media properties, content studios, and entertainment platforms integrated with distribution and monetization channels.</p>
+      </div>
+      <div class="eco-cell reveal">
+        <div class="eco-icon">⊞</div>
+        <h3 class="eco-cell-title">Real Estate Technology</h3>
+        <p class="eco-cell-text">PropTech solutions bridging physical assets with digital infrastructure—fractional ownership, smart leasing, and asset management.</p>
+      </div>
+      <div class="eco-cell reveal">
+        <div class="eco-icon">◎</div>
+        <h3 class="eco-cell-title">Strategic Ventures</h3>
+        <p class="eco-cell-text">Cross-sector opportunities and joint ventures with corporate partners that amplify ecosystem connectivity and market reach.</p>
+      </div>
+      <div class="eco-cell reveal">
+        <div class="eco-icon">✦</div>
+        <h3 class="eco-cell-title">Cultural Commerce</h3>
+        <p class="eco-cell-text">Where institutional finance, technological innovation, and cultural influence converge—creating deal-flow advantages unavailable through traditional channels.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section class="platform" id="platform">
+  <div class="container">
+    <div class="platform-layout">
+      <div class="reveal">
+        <p class="section-eyebrow">Venture Infrastructure</p>
+        <h2 class="section-title">The Platform Is<br>the Product</h2>
+        <p class="section-desc">Beyond a fund. Beyond a studio. GPT Capital operates a proprietary venture infrastructure that investors, founders, and advisors access as a unified ecosystem—a capital network, venture-building machine, and innovation platform operating simultaneously.</p>
+        <div class="platform-features" style="margin-top: 48px;">
+          <div class="pf-item">
+            <div class="pf-num">01</div>
+            <div>
+              <div class="pf-title">Deal-Flow Marketplace</div>
+              <div class="pf-text">Proprietary pipeline connecting founders with capital, distribution partners, and operational support in a single platform layer.</div>
+            </div>
+          </div>
+          <div class="pf-item">
+            <div class="pf-num">02</div>
+            <div>
+              <div class="pf-title">AI Venture Toolkit</div>
+              <div class="pf-text">Intelligence-driven tools for market analysis, competitive mapping, financial modeling, and strategic planning—embedded into the studio workflow.</div>
+            </div>
+          </div>
+          <div class="pf-item">
+            <div class="pf-num">03</div>
+            <div>
+              <div class="pf-title">Incubation Management System</div>
+              <div class="pf-text">End-to-end operational infrastructure for company formation, team building, milestone tracking, and capital deployment across all portfolio companies.</div>
+            </div>
+          </div>
+          <div class="pf-item">
+            <div class="pf-num">04</div>
+            <div>
+              <div class="pf-title">Investor Relations Infrastructure</div>
+              <div class="pf-text">Institutional-grade reporting, LP communications, and portfolio transparency—building trust with sophisticated capital partners at every stage.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-visual reveal">
+        <div class="platform-visual-inner">
+          <div class="pv-ring pv-ring-1"></div>
+          <div class="pv-ring pv-ring-2"></div>
+          <div class="pv-ring pv-ring-3"></div>
+          <div class="pv-node"></div>
+          <div class="pv-node"></div>
+          <div class="pv-node"></div>
+          <div class="pv-node"></div>
+          <div class="pv-center">
+            <div class="pv-center-text">GPT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap" id="roadmap">
+  <div class="container">
+    <div class="roadmap-header reveal">
+      <p class="section-eyebrow">Growth Architecture</p>
+      <h2 class="section-title">The Billion-Dollar Roadmap</h2>
+      <p class="section-desc">A phased execution timeline transforming GPT Capital from a $100M operation into a billion-dollar enterprise across three strategic stages.</p>
+    </div>
+    <div class="roadmap-phases">
+      <div class="phase reveal">
+        <div class="phase-label">Phase I</div>
+        <div class="phase-time">Foundation</div>
+        <div class="phase-items">
+          <div class="phase-item"><div class="phase-dot"></div><span>Institutionalize brand architecture and market positioning</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>Secure anchor limited partners across target LP verticals</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>Formalize venture studio operations and launch cadence</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>Establish thought-leadership through venture media and founder summits</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>Target: $300M in managed capital</span></div>
+        </div>
+      </div>
+      <div class="phase reveal">
+        <div class="phase-label">Phase II</div>
+        <div class="phase-time">Expansion</div>
+        <div class="phase-items">
+          <div class="phase-item"><div class="phase-dot"></div><span>Accelerate portfolio company launches across all verticals</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>Deepen institutional partnerships and LP network</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>Deploy first iteration of proprietary venture platform technology</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>Demonstrate traction through capital deployment and strategic alliances</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>Activate diversified revenue: studio equity, licensing, media partnerships</span></div>
+        </div>
+      </div>
+      <div class="phase reveal">
+        <div class="phase-label">Phase III</div>
+        <div class="phase-time">Dominance</div>
+        <div class="phase-items">
+          <div class="phase-item"><div class="phase-dot"></div><span>Portfolio companies reach maturity and early exits begin</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>Realized returns validate and compound institutional confidence</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>Venture platform achieves independent SaaS-style valuation</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>AUM crosses $1B+ through expanded institutional participation</span></div>
+          <div class="phase-item"><div class="phase-dot"></div><span>GPT Capital operates as foundational layer of the innovation economy</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTORS -->
+<section class="investors" id="investors">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-eyebrow">Dual-Sided Strategy</p>
+      <h2 class="section-title" style="margin-bottom: 64px;">Capital Meets Culture</h2>
+    </div>
+    <div class="investors-layout">
+      <div class="reveal">
+        <div class="inv-col-title">Investor Verticals</div>
+        <div class="inv-items">
+          <div class="inv-item"><div class="inv-item-icon">◆</div><div class="inv-item-text">Ultra-High-Net-Worth Family Offices</div></div>
+          <div class="inv-item"><div class="inv-item-icon">◆</div><div class="inv-item-text">Global Wealth Syndicates</div></div>
+          <div class="inv-item"><div class="inv-item-icon">◆</div><div class="inv-item-text">Sovereign Wealth Affiliates</div></div>
+          <div class="inv-item"><div class="inv-item-icon">◆</div><div class="inv-item-text">Professional Athlete Collectives</div></div>
+          <div class="inv-item"><div class="inv-item-icon">◆</div><div class="inv-item-text">Entertainment Industry Capital Groups</div></div>
+          <div class="inv-item"><div class="inv-item-icon">◆</div><div class="inv-item-text">Technology Liquidity Holders</div></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="inv-col-title">Founder Verticals</div>
+        <div class="inv-items">
+          <div class="inv-item"><div class="inv-item-icon">✦</div><div class="inv-item-text">Culturally Connected Entrepreneurs</div></div>
+          <div class="inv-item"><div class="inv-item-icon">✦</div><div class="inv-item-text">Creator-Driven Founders</div></div>
+          <div class="inv-item"><div class="inv-item-icon">✦</div><div class="inv-item-text">AI & Machine Learning Developers</div></div>
+          <div class="inv-item"><div class="inv-item-icon">✦</div><div class="inv-item-text">Infrastructure & Platform Builders</div></div>
+          <div class="inv-item"><div class="inv-item-icon">✦</div><div class="inv-item-text">Emerging Platform Creators</div></div>
+          <div class="inv-item"><div class="inv-item-icon">✦</div><div class="inv-item-text">Distribution-Leverage Operators</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg"></div>
+  <div class="container cta-content reveal">
+    <p class="section-eyebrow">Enter the Ecosystem</p>
+    <h2 class="cta-title">The Future Isn't Funded.<br>It's <em>Owned</em>.</h2>
+    <p class="cta-sub">Whether you're an institutional allocator seeking differentiated exposure or a founder building the next layer of the innovation economy—GPT Capital is where ownership begins.</p>
+    <div class="hero-actions">
+      <a href="mailto:partners@gptcapital.com" class="btn-primary">Limited Partner Inquiries</a>
+      <a href="mailto:founders@gptcapital.com" class="btn-secondary">Founder Applications</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">GPT Capital</div>
+        <p class="footer-tagline">A next-generation ownership platform shaping the architecture of the global innovation economy.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <div class="footer-col-title">Platform</div>
+          <a href="#thesis">Thesis</a>
+          <a href="#ecosystem">Ecosystem</a>
+          <a href="#platform">Infrastructure</a>
+          <a href="#roadmap">Roadmap</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Capital</div>
+          <a href="#investors">LP Verticals</a>
+          <a href="#investors">Founder Verticals</a>
+          <a href="#">Fund Overview</a>
+          <a href="#">Portfolio</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Connect</div>
+          <a href="mailto:partners@gptcapital.com">Partner Inquiries</a>
+          <a href="mailto:founders@gptcapital.com">Founder Applications</a>
+          <a href="#">Media</a>
+          <a href="#">Careers</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 GPT Capital. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Disclosures</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Stagger reveals within containers
+document.querySelectorAll('.eco-grid .reveal, .thesis-right .reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.1}s`;
+});
+
+// Nav scroll effect
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  const scroll = window.scrollY;
+  if (scroll > 100) {
+    nav.style.padding = '16px 40px';
+  } else {
+    nav.style.padding = '24px 40px';
+  }
+  lastScroll = scroll;
+});
+</script>
+
+</body>
+</html>
